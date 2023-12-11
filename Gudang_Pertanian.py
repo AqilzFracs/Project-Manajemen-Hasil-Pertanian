@@ -3,7 +3,7 @@ import csv
 
 class RedBlackTreeNode:
     def __init__(self, nama, jumlah, color, left=None, right=None, parent=None):
-        self.nama = nama  # Nomor telepon sebagai kunci
+        self.nama = nama
         self.jumlah = jumlah
         self.color = color
         self.left = left
