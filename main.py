@@ -1,7 +1,7 @@
-from Gudang_Pertanian import redBlackTree
+from Gudang_Pertanian import RedBlackTree
 
 if __name__ == "__main__":
-  tree = redBlackTree()
+  tree = RedBlackTree()
 
   while True:
       print("\nMenu:")
@@ -16,16 +16,14 @@ if __name__ == "__main__":
       choice = int(input("Pilih menu: "))
 
       if choice == 1:
-          tree.display_data(desc = False)
+          tree.display_data(descending = False)
           nama = input("Masukkan nama barang: ")
           jumlah = int(input("Masukkan jumlah barang: "))
-          harga = int(input("Masukkan harga barang: "))
-          tree.insert(nama, jumlah, harga)
+          tree.insert(nama, jumlah)
       elif choice == 2:
           print("Mencari hasil pertanian berdasarkan")
           print("[1] Nama")
           print("[2] Jumlah")
-          print("[3] Harga")
           pilih = int(input("--> "))
           if pilih == 1:
               nama = input("Masukkan nama untuk mencari hasil pertanian: ")
@@ -33,28 +31,25 @@ if __name__ == "__main__":
           elif pilih == 2:
               jumlah = int(input("Masukkan jumlah untuk mencari hasil pertanian: "))
               tree.search_and_display("jumlah", jumlah)
-          elif pilih == 3:
-              harga = int(input("Masukkan harga untuk mencari hasil pertanian: "))
-              tree.search_and_display("harga", harga)
           else:
               print("invalid input")
       elif choice == 3:
           print("Tampilkan Berdasarkan")
           print("1. Ascending")
-          print("2. Descending")
+          print("2. descending")
           pilih = int(input("--> "))
           if pilih == 1:
-              tree.display_data(desc=False)
+              tree.display_data(descending=False)
           elif pilih == 2:
-              tree.display_data(desc=True)
+              tree.display_data(descending=True)
           else:
               print("invalid input")
       elif choice == 4:
-          tree.display_data(desc=False)
+          tree.display_data(descending=False)
           nama = input("Masukkan nama untuk menghapus hasil pertanian: ")
           tree.delete(nama)
       elif choice == 5:
-          tree.display_data(desc=False)
+          tree.display_data(descending=False)
           nama = input("Masukkan nama untuk mengedit hasil pertanian: ")
           result = tree.search(nama)
           if result != tree.NIL:
