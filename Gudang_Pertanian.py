@@ -99,6 +99,15 @@ class RedBlackTree:
         y.right = x
         x.parent = y
 
+    def search(self, key):
+        return self._search(self.root, key)
+
+    def _search(self, node, key):
+        if node == self.NIL or key == node.key:
+            return node
+        if key < node.key:
+            return self._search(node.left, key)
+        return self._search(node.right, key)
 
     def search_key(self, key):
         result_list = []
@@ -172,7 +181,7 @@ class RedBlackTree:
             return []
         
     def delete(self, key):
-        node = self.search_key(key)
+        node = self.search(key)
         if node != self.NIL:
             self.delete_node(node)
 
@@ -263,7 +272,7 @@ class RedBlackTree:
         v.parent = u.parent
 
     def edit(self, old_key, new_key, new_value):
-        node_to_edit = self.search_key(old_key)
+        node_to_edit = self.search(old_key)
         if node_to_edit != self.NIL:
             node_to_edit.key = new_key
             node_to_edit.value = new_value
