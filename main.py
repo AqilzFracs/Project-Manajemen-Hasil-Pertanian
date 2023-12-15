@@ -1,7 +1,18 @@
 from Gudang_Pertanian import RedBlackTree
+import csv
+from prettytable import PrettyTable
+from tabulate import tabulate
 
 if __name__ == "__main__":
-  tree = RedBlackTree()
+  rb_tree = RedBlackTree()
+
+  with open("hasilPertanian.csv", 'r') as file:
+            csv_reader = csv.reader(file)
+            next(csv_reader)
+            data = [row for row in csv_reader]
+
+            for i in data:
+                rb_tree.insert(i[0], i[1])
 
   while True:
       print("\nMenu:")
@@ -16,21 +27,31 @@ if __name__ == "__main__":
       choice = int(input("Pilih menu: "))
 
       if choice == 1:
-          tree.display_data(descending = False)
-          nama = input("Masukkan nama barang: ")
-          jumlah = int(input("Masukkan jumlah barang: "))
-          tree.insert(nama, jumlah)
+        rb_tree.display_data()
+        nama = input("Masukkan nama barang: ")
+        jumlah = int(input("Masukkan jumlah barang: "))
+        rb_tree.insert(nama, jumlah)
       elif choice == 2:
           print("Mencari hasil pertanian berdasarkan")
           print("[1] Nama")
           print("[2] Jumlah")
           pilih = int(input("--> "))
           if pilih == 1:
-              nama = input("Masukkan nama untuk mencari hasil pertanian: ")
-              tree.search_and_display("nama", nama)
+            nama = input("Masukkan nama untuk mencari hasil pertanian: ")
+            result_node = rb_tree.search_key(nama)
+            if result_node != rb_tree.NIL:
+                data = [[result_node.key, result_node.value]]
+                print(tabulate(data, headers=["Nama", "Jumlah"], tablefmt='fancy_grid'))
+            else:
+                print(f"\nNilai '{nama}' tidak ditemukan dalam pohon.")
           elif pilih == 2:
               jumlah = input("Masukkan jumlah untuk mencari hasil pertanian: ")
-              tree.search_and_display("jumlah", jumlah)
+              result_nodes = rb_tree.search_value(jumlah)
+              if result_nodes != rb_tree.NIL:
+                data = [[node.key, node.value] for node in result_nodes]
+                print(tabulate(data, headers=["Nama", "Jumlah"], tablefmt='fancy_grid'))
+              else:
+                print(f"\nNilai '{jumlah}' tidak ditemukan dalam pohon.")
           else:
               print("invalid input")
       elif choice == 3:
@@ -39,26 +60,26 @@ if __name__ == "__main__":
           print("2. descending")
           pilih = int(input("--> "))
           if pilih == 1:
-              tree.display_data(descending=False)
+            rb_tree.display_data()
           elif pilih == 2:
-              tree.display_data(descending=True)
+            rb_tree.display_data(descending=True)
           else:
               print("invalid input")
       elif choice == 4:
-          tree.display_data(descending=False)
-          nama = input("Masukkan nama untuk menghapus hasil pertanian: ")
-          tree.delete("nama", nama)
+        rb_tree.display_data()
+        nama = input("Masukkan nama untuk menghapus hasil pertanian: ")
+        rb_tree.delete(nama)
       elif choice == 5:
-          tree.display_data(descending=False)
-          nama = input("Masukkan nama hasil pertanian untuk mengedit: ")
-          new_nama = input("Masukkan nama baru: ")
-          new_jumlah = input("Masukkan jumlah baru: ")
-          tree.edit(nama, new_nama, new_jumlah)
+        rb_tree.display_data()
+        nama = input("Masukkan nama hasil pertanian untuk mengedit: ")
+        new_nama = input("Masukkan nama baru: ")
+        new_jumlah = input("Masukkan jumlah baru: ")
+        rb_tree.edit(nama, new_nama, new_jumlah)
       elif choice == 6:
           konfirmasi = input("Apakah anda yakin ingin menyimpan perubahan ? (y/n)")
           if konfirmasi == "y":
               filename = "hasilPertanian.csv"
-              tree.save_to_file(filename)
+              rb_tree.save_to_file()
               print("Data disimpan ke file.")
           elif konfirmasi == "n":
               print("Kembali ke menu")
