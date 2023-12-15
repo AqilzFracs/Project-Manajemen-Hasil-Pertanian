@@ -109,11 +109,11 @@ class RedBlackTree:
         return result_list
 
     def search_helper_key(self, node, key):
-        if node == self.NIL or key == node.key:
+        if node == self.NIL or key.lower() == node.key.lower():
             return node
-        elif key < node.key:
+        elif key.lower() < node.key.lower():
             return self.search_helper_key(node.left, key)
-        else:
+        elif key.lower() > node.key.lower():
             return self.search_helper_key(node.right, key)
         
     def search_helper_value(self, node, value, result_list):
