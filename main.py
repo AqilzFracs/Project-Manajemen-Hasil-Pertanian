@@ -40,7 +40,7 @@ if __name__ == "__main__":
             nama = input("Masukkan nama untuk mencari hasil pertanian: ")
             result_node = rb_tree.search_key(nama)
             if result_node != rb_tree.NIL:
-                data = [[result_node.key, result_node.value]]
+                data = [[node.key, node.value] for node in result_node]
                 print(tabulate(data, headers=["Nama", "Jumlah"], tablefmt='fancy_grid'))
             else:
                 print(f"\nNilai '{nama}' tidak ditemukan dalam pohon.")

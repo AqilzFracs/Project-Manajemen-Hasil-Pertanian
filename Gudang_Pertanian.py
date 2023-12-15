@@ -101,20 +101,21 @@ class RedBlackTree:
 
 
     def search_key(self, key):
-        return self.search_helper_key(self.root, key)
+        result_list = []
+        self.search_helper_key(self.root, key, result_list)
+        return result_list
     
     def search_value(self, value):
         result_list = []
         self.search_helper_value(self.root, value, result_list)
         return result_list
 
-    def search_helper_key(self, node, key):
-        if node == self.NIL or key.lower() == node.key.lower():
-            return node
-        elif key.lower() < node.key.lower():
-            return self.search_helper_key(node.left, key)
-        elif key.lower() > node.key.lower():
-            return self.search_helper_key(node.right, key)
+    def search_helper_key(self, node, key, result_list):
+        if node != self.NIL:
+            self.search_helper_key(node.left, key, result_list)
+            if key.lower() in node.key.lower():  # Case-insensitive partial match
+                result_list.append(node)
+            self.search_helper_key(node.right, key, result_list)
         
     def search_helper_value(self, node, value, result_list):
         if node != self.NIL:
