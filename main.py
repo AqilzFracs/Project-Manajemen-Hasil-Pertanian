@@ -8,7 +8,6 @@ if __name__ == "__main__":
 
   with open("hasilPertanian.csv", 'r') as file:
             csv_reader = csv.reader(file)
-            next(csv_reader)
             data = [row for row in csv_reader]
 
             for i in data:

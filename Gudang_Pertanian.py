@@ -9,8 +9,6 @@ class RedBlackTreeNode:
         self.left = left
         self.right = right
         self.parent = parent
-
-
 class RedBlackTree:
     def __init__(self):
         self.NIL = RedBlackTreeNode(None, None, 0)
@@ -100,14 +98,7 @@ class RedBlackTree:
         x.parent = y
 
     def search(self, key):
-        return self._search(self.root, key)
-
-    def _search(self, node, key):
-        if node == self.NIL or key == node.key:
-            return node
-        if key < node.key:
-            return self._search(node.left, key)
-        return self._search(node.right, key)
+        return self.search_helper(self.root, key)
 
     def search_key(self, key):
         result_list = []
@@ -119,6 +110,13 @@ class RedBlackTree:
         self.search_helper_value(self.root, value, result_list)
         return result_list
 
+    def search_helper(self, node, key):
+        if node == self.NIL or key == node.key:
+            return node
+        if key < node.key:
+            return self.search_helper(node.left, key)
+        return self.search_helper(node.right, key)
+    
     def search_helper_key(self, node, key, result_list):
         if node != self.NIL:
             self.search_helper_key(node.left, key, result_list)
@@ -287,4 +285,3 @@ class RedBlackTree:
                 for node in data:
                     line = f"{node.key},{node.value}\n"
                     file.write(line)
-                # print(f'Data has been saved to {filename}')
